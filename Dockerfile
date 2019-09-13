@@ -14,12 +14,12 @@ RUN apk update && apk add bash && rm -rf /var/cache/apk/*
 RUN /bin/bash
 
 SHELL ["/bin/bash", "-lc"]
-CMD ["/bin/bash", "-l"]
+CMD   ["/bin/bash", "-l"]
 
 # OS Dependencies 
 RUN apk update \
   && apk add alpine-sdk gcc gnupg curl ruby procps musl-dev make linux-headers \
-        zlib zlib-dev openssl openssl-dev libssl1.0 shadow openssh-client
+        zlib zlib-dev openssl openssl-dev libssl1.0 shadow openssh-client ruby-dev build-base libffi-dev
 
 USER rvm
 
@@ -32,6 +32,7 @@ RUN yes | rvm requirements
 # Install ruby
 RUN yes | yes | rvm install 2.6.3
 RUN rvm use 2.6.3 --default
+RUN gem install bundler
 
 USER root
 RUN apk del gcc gnupg curl ruby musl-dev make linux-headers \
