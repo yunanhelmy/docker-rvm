@@ -31,6 +31,7 @@ RUN yes | rvm requirements
 
 # Install ruby
 RUN yes | yes | rvm install 2.6.3
+RUN rvm use 2.6.3 --default
 
 USER root
 RUN apk del gcc gnupg curl ruby musl-dev make linux-headers \
